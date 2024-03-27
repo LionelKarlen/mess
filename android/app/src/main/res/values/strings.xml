@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">mess</string>
+    <string name="title_activity_main">mess</string>
+    <string name="package_name">org.suspiciouslycool.mess</string>
+    <string name="custom_url_scheme">org.suspiciouslycool.mess</string>
+</resources>
