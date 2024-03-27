@@ -61,14 +61,15 @@
 						class:border-l-warning={item.status == Status.TRANSIT}
 						class:border-l-success={item.status == Status.DONE}
 						class:border-l-error={item.status == Status.INCOMPLETE}
-						class="border-l-2"
+						class="items-center border-l-2"
 					>
 						<td>{item.name}</td>
 						<td><RenderImage record={item}></RenderImage></td>
 						<td><RenderCategories categories={item.categories}></RenderCategories></td>
 						<td><RenderContainer container={item.location} /> </td>
 						<td><RenderContainer container={item.designation} /> </td>
-						<td class="flex justify-end">
+						<!-- TODO: Fix vertical alignment of actions -->
+						<td class="flex h-full flex-row items-center justify-end">
 							<a href={`stuff/${item.id}`}>
 								<Icon icon="pencil-square"></Icon>
 							</a>

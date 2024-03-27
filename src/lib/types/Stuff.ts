@@ -23,3 +23,12 @@ export interface ModelStuff {
 	};
 	image: string;
 }
+
+export interface BodyStuff {
+	id: string;
+	name: string;
+	categories: string[];
+	location: string;
+	designation: string;
+	image: string;
+}
