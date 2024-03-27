@@ -10,7 +10,7 @@ async function getPBPath(): Promise<string> {
 		const res = await axios.get(gisturl);
 		return res.data;
 	}
-	return 'https://127.0.0.1:8090';
+	return 'http://127.0.0.1:8090';
 }
 
 const pb = new PocketBase(await getPBPath());

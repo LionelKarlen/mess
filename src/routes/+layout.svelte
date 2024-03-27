@@ -1,9 +1,14 @@
 <script>
+	import '../app.pcss';
 	import { currentUser } from '$lib/services/auth';
+	import Login from '$lib/components/Login.svelte';
 </script>
 
 {#if $currentUser.model != null}
-	show home page
+	home page
+	<slot />
 {:else}
-	not logged in
+	<div class="-full flex h-dvh justify-center">
+		<Login />
+	</div>
 {/if}
