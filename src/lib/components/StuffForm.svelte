@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import categories from '$lib/services/categories';
 	import locations from '$lib/services/locations';
 	import pb from '$lib/services/pb';
 	import type Container from '$lib/types/Container';
 	import Icon from './Icon.svelte';
+	import SelectMultiple from './SelectMultiple.svelte';
 	import SelectSingle from './SelectSingle.svelte';
 
 	export let isEdit: boolean = false;
@@ -12,9 +14,11 @@
 	let name: string;
 	let location: string;
 	let designation: string;
+	let localCategories: string[] = [];
 
 	function poll() {
 		console.log(location);
+		console.log(localCategories);
 	}
 
 	async function getData() {
@@ -65,10 +69,12 @@
 		<input type="text" class="grow" placeholder="Name" bind:value={name} />
 	</label>
 
-	<label class="input input-bordered flex items-center gap-2">
-		<Icon icon="cube" />
-		<input type="text" class="grow" placeholder="Name" bind:value={name} />
-	</label>
+	<SelectMultiple
+		options={$categories}
+		icon="tag"
+		placeholder="Categories"
+		bind:value={localCategories}
+	/>
 
 	<SelectSingle options={$locations} icon="map-pin" placeholder="Location" bind:value={location} />
 
