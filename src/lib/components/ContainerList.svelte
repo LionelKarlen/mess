@@ -4,7 +4,6 @@
 	import type { Writable } from 'svelte/store';
 	import Icon from './Icon.svelte';
 
-	// export let containers: Container[] = [];
 	export let containerStore: Writable<Container[]>;
 	export let containerName: string;
 	export let containerNamePlural: string;

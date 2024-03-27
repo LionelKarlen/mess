@@ -21,6 +21,7 @@
 	getData();
 
 	async function handleSubmit() {
+		console.log('handlesubmit');
 		if (isEdit) {
 			await pb.collection(containerCollection).update(id, { name: name });
 		} else {
@@ -42,7 +43,7 @@
 	<div class="flex flex-row items-center justify-between">
 		<h3 class="mb-2 text-xl">{isEdit ? `Edit ${containerName}` : `Create new ${containerName}`}</h3>
 		{#if isEdit}
-			<button class="btn btn-ghost btn-error" on:click={handleDelete}>
+			<button class="btn btn-ghost btn-error" type="button" on:click={handleDelete}>
 				<Icon icon="trash" />
 			</button>
 		{/if}
