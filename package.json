@@ -35,6 +35,8 @@
 	"type": "module",
 	"dependencies": {
 		"@capacitor/android": "^5.7.4",
-		"@capacitor/core": "^5.7.4"
+		"@capacitor/core": "^5.7.4",
+		"axios": "^1.6.8",
+		"pocketbase": "^0.21.1"
 	}
 }
