@@ -1,0 +1,15 @@
+name: CheckVersion
+on:
+  pull_request:
+    branches:
+      - stage
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check Version
+        uses: kriasoft/check-version@v1
+        with: { path: '.' }

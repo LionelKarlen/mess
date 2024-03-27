@@ -1,0 +1,58 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: activate yarn
+        run: corepack enable
+      - name: Install
+        run: yarn install
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+      - name: Build web
+        run: yarn build:web
+      - name: Build Android
+        run: |
+          npx cap sync
+          cd android
+          ./gradlew assembleRelease
+          cd ..
+      - name: Generate artifacts
+        run: |
+          zip web_.zip -r ./build/*
+          mv android/app/build/outputs/apk/release/app-release-unsigned.apk ./mess_.apk
+      - name: Package.json info
+        uses: rexdefuror/read-package-json@v1.0.5
+      - name: Create Tag
+        run: |
+          git config user.name "Github Actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git tag ${{env.PACKAGE_VERSION}}
+          git push origin ${{env.PACKAGE_VERSION}}
+      - name: rename
+        run: |
+          mv web_.zip web_${{env.PACKAGE_VERSION}}.zip
+          mv mess_.apk mess_${{env.PACKAGE_VERSION}}.apk
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{env.PACKAGE_VERSION}}
+          name: Release ${{env.PACKAGE_VERSION}}
+          artifacts: 'web_${{env.PACKAGE_VERSION}}.zip, mess_${{env.PACKAGE_VERSION}}.apk'
+          generateReleaseNotes: true
