@@ -8,8 +8,47 @@
 	import RenderCategories from '$lib/components/RenderCategories.svelte';
 	import { calculateStatus } from '$lib/services/status';
 	import { Status } from '$lib/types/Status';
+	import SelectPill from '$lib/components/SelectPill.svelte';
+	import categories from '$lib/services/categories';
+	import locations from '$lib/services/locations';
 
 	let stuff: Stuff[] = [];
+	let filtered: Stuff[] = stuff;
+
+	$: filter(nameFilter, statusFilter, categoryFilter, locationFilter, designationFilter, stuff);
+
+	let nameFilter = '';
+	let statusFilter = new Set<string>('');
+	let categoryFilter = new Set<string>();
+	let locationFilter = new Set<string>();
+	let designationFilter = new Set<string>();
+
+	function filter(
+		nameFilter: string,
+		statusFilter: Set<string>,
+		categoryFilter: Set<string>,
+		locationFilter: Set<string>,
+		designationFilter: Set<string>,
+		stuff: Stuff[]
+	) {
+		filtered = stuff.filter((v) => v.name?.startsWith(nameFilter));
+		if (statusFilter.size > 0) {
+			filtered = filtered.filter((v) => statusFilter.has(v.status ?? ''));
+		}
+		if (categoryFilter.size > 0) {
+			filtered = filtered.filter(
+				(v) =>
+					v.categories?.some((c) => categoryFilter.has(c.id)) ||
+					(categoryFilter.has('empty') && !v.categories)
+			);
+		}
+		if (locationFilter.size > 0) {
+			filtered = filtered.filter((v) => locationFilter.has(v.location?.id ?? 'empty'));
+		}
+		if (designationFilter.size > 0) {
+			filtered = filtered.filter((v) => designationFilter.has(v.designation?.id ?? 'empty'));
+		}
+	}
 
 	async function getData() {
 		const tmpStuff: ModelStuff[] = await pb
@@ -31,13 +70,68 @@
 			stuff.push(localStuff);
 		}
 		stuff = stuff;
+		filtered = stuff;
 	}
+
 	getData();
 </script>
 
 <div class="flex w-full flex-col gap-3">
 	<div class="flex flex-row items-center justify-between align-middle">
-		<h3 class="items-center align-middle text-xl">Stuff</h3>
+		<div class="flex flex-row items-center gap-2">
+			<h3 class="items-center align-middle text-xl">Stuff</h3>
+			<details class="dropdown">
+				<summary class="btn btn-ghost"><Icon icon="funnel" /></summary>
+				<ul class="menu dropdown-content z-[1] rounded-box bg-base-200 p-2 shadow sm:p-3">
+					<div>
+						<h3 class="text-lg">Name</h3>
+						<li>
+							<label class="input input-bordered flex items-center gap-2">
+								<Icon icon="magnifying-glass" />
+								<input type="text" class="grow" placeholder="Name" bind:value={nameFilter} />
+							</label>
+						</li>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="!hover:bg-transparent">
+						<h3 class="text-lg">Status</h3>
+						<SelectPill
+							hideEmpty={true}
+							options={Object.keys(Status).map((v) => {
+								return {
+									name: v,
+									id: v.toLowerCase()
+								};
+							})}
+							bind:selected={statusFilter}
+						/>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="!hover:bg-transparent">
+						<h3 class="text-lg">Category</h3>
+						<SelectPill options={$categories} bind:selected={categoryFilter} />
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="!hover:bg-transparent">
+						<h3 class="text-lg">Location</h3>
+						<SelectPill options={$locations} bind:selected={locationFilter} />
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="!hover:bg-transparent">
+						<h3 class="text-lg">Designation</h3>
+						<SelectPill options={$locations} bind:selected={designationFilter} />
+					</div>
+				</ul>
+			</details>
+		</div>
 		<a class="btn btn-primary" href={`stuff/new`}>
 			<Icon icon="plus" />
 			Add Stuff
@@ -56,7 +150,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each stuff as item}
+				{#each filtered as item}
 					<tr
 						class:border-l-warning={item.status == Status.TRANSIT}
 						class:border-l-success={item.status == Status.DONE}
