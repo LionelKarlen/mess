@@ -25,10 +25,10 @@ export interface ModelStuff {
 }
 
 export interface BodyStuff {
-	id: string;
+	id?: string;
 	name: string;
 	categories: string[];
 	location: string;
 	designation: string;
-	image: string;
+	image: File;
 }

@@ -3,7 +3,7 @@
 	import categories from '$lib/services/categories';
 	import locations from '$lib/services/locations';
 	import pb from '$lib/services/pb';
-	import type Container from '$lib/types/Container';
+	import type { BodyStuff } from '$lib/types/Stuff';
 	import Icon from './Icon.svelte';
 	import SelectMultiple from './SelectMultiple.svelte';
 	import SelectSingle from './SelectSingle.svelte';
@@ -14,35 +14,42 @@
 	let name: string;
 	let location: string;
 	let designation: string;
+	let files: FileList;
+	let file: string;
 	let localCategories: string[] = [];
-
-	function poll() {
-		console.log(location);
-		console.log(localCategories);
-	}
 
 	async function getData() {
 		if (isEdit) {
-			const container: Container = await pb.collection('stuff').getOne(id);
-			name = container.name;
+			const dbStuff: BodyStuff = await pb.collection('stuff').getOne(id);
+			name = dbStuff.name;
+			location = dbStuff.location;
+			designation = dbStuff.designation;
+			localCategories = dbStuff.categories;
+			file = dbStuff.image as never as string;
 		}
 	}
 
 	getData();
 
 	async function handleSubmit() {
-		console.log('handlesubmit');
+		const tmpStuff: BodyStuff = {
+			name: name,
+			categories: localCategories ?? undefined,
+			location: location ?? undefined,
+			designation: designation ?? undefined,
+			image: (files ?? [undefined])[0]
+		};
 		if (isEdit) {
-			await pb.collection('stuff').update(id, { name: name });
+			await pb.collection('stuff').update(id, tmpStuff);
 		} else {
-			await pb.collection('stuff').create({ name: name });
+			await pb.collection('stuff').create(tmpStuff);
 		}
-		goto(`/${'stuff'}`);
+		goto(`/`);
 	}
 
 	async function handleDelete() {
 		await pb.collection('stuff').delete(id);
-		goto(`/${'stuff'}`);
+		goto(`/`);
 	}
 </script>
 
@@ -65,8 +72,18 @@
 	</label>
 
 	<label class="input input-bordered flex items-center gap-2">
-		<Icon icon="cube" />
-		<input type="text" class="grow" placeholder="Name" bind:value={name} />
+		<Icon icon="document" />
+		{#if file}
+			<img
+				src={pb.files.getUrl({ collectionName: 'stuff', id: id }, file, {
+					thumb: '100x100'
+				})}
+				height="50"
+				width="50"
+				alt=""
+			/>
+		{/if}
+		<input type="file" class="file-input file-input-ghost w-full" bind:files />
 	</label>
 
 	<SelectMultiple
@@ -88,5 +105,4 @@
 	<button class="btn btn-primary" disabled={name == null || name.length == 0}
 		>{isEdit ? 'Update' : 'Add'}</button
 	>
-	<button class="btn btn-secondary" type="button" on:click={poll}>poll</button>
 </form>

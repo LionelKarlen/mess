@@ -20,6 +20,16 @@
 		value = arr;
 	}
 
+	function updateSelected(value: string[]) {
+		const valueSet = new Set<string>(value);
+		for (const entry of localOptions) {
+			if (valueSet.has(entry.value)) {
+				selected.add(entry);
+			}
+		}
+	}
+	$: updateSelected(value);
+
 	$: updateValue(selected);
 
 	interface Option {
