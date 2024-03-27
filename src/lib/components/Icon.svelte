@@ -1,6 +1,6 @@
 <script lang="ts">
-	export let width: string | number = 24;
-	export let height: string | number = 24;
+	export let width: string | number = 20;
+	export let height: string | number = 20;
 	export let icon: string;
 </script>
 

@@ -16,7 +16,7 @@
 	</div>
 	<div class="navbar-end gap-3">
 		<a class="btn btn-ghost" href="/logout" data-sveltekit-preload-data="tap">
-			<Icon icon="arrow-left-start-on-rectangle" height="20" width="20"></Icon>
+			<Icon icon="arrow-left-start-on-rectangle"></Icon>
 		</a>
 	</div>
 </div>
@@ -28,7 +28,7 @@
 <div class="btm-nav">
 	{#each navigationElements as navigationElement}
 		<a href={navigationElement.href} class:active={$page.url.pathname === navigationElement.href}>
-			<Icon icon={navigationElement.svg} height={20} width={20} />
+			<Icon icon={navigationElement.svg} />
 			{navigationElement.name}
 		</a>
 	{/each}

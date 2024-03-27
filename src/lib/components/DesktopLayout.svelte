@@ -17,18 +17,18 @@
 		{#each navigationElements as navigationElement}
 			{#if !navigationElement.mobileOnly}
 				<a href={navigationElement.href} class="btn btn-ghost">
-					<Icon icon={navigationElement.svg} height={20} width={20} />
+					<Icon icon={navigationElement.svg} />
 					{navigationElement.name}
 				</a>
 			{/if}
 		{/each}
 		<a class="btn btn-ghost" href="/logout" data-sveltekit-preload-data="tap">
-			<Icon icon="arrow-left-start-on-rectangle" height="20" width="20"></Icon>
+			<Icon icon="arrow-left-start-on-rectangle"></Icon>
 		</a>
 	</div>
 </div>
 <div class="flex flex-row justify-center px-10">
-	<div class="flex w-full flex-col">
+	<div class="flex w-full flex-col items-center justify-center">
 		<slot />
 	</div>
 </div>
