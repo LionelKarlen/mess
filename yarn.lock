@@ -221,6 +221,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.2.tgz#d9fae00a2d5cb40f92cfe64b47ad749fbc38f917"
   integrity sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==
 
+"@iconify/types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@iconify/types/-/types-2.0.0.tgz#ab0e9ea681d6c8a1214f30cd741fe3a20cc57f57"
+  integrity sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==
+
 "@ionic/cli-framework-output@^2.2.5":
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/@ionic/cli-framework-output/-/cli-framework-output-2.2.8.tgz#29d541acc7773a6aaceec5f3b079937fbcef5402"
@@ -1487,6 +1492,13 @@ husky@^9.0.11:
   version "9.0.11"
   resolved "https://registry.yarnpkg.com/husky/-/husky-9.0.11.tgz#fc91df4c756050de41b3e478b2158b87c1e79af9"
   integrity sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==
+
+iconify-icon@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/iconify-icon/-/iconify-icon-2.0.0.tgz#fcdc7e2d09f4b83409f9b74b5a25bdf21a9e6b70"
+  integrity sha512-38ArOkxmyD9oDbJBkxaFpE6eZ0K3F9Sk+3x4mWGfjMJaxi3EKrix9Du4iWhgBFT3imKC4FJJE34ur2Rc7Xm+Uw==
+  dependencies:
+    "@iconify/types" "^2.0.0"
 
 ignore@^5.2.0, ignore@^5.2.4:
   version "5.3.1"

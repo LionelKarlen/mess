@@ -1,0 +1,11 @@
+<svg width="500" height="500" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M242 92L244 254L361 231.5L361.5 82L242 92Z" fill="#C09CFC" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M246.5 404.5L244 254L353 281V446.5L246.5 404.5Z" fill="#9CFCB7" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M361.5 231.5L244 254L353 281L472 255.5L361.5 231.5Z" fill="#9CFCB7" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M468.5 409.5L472 255.5L353 281V446.5L468.5 409.5Z" fill="#9CFCB7" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M153.5 230L244 254L242 92L148.5 82.5L153.5 230Z" fill="#C09CFC" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M148.5 82.5L242 92L361.5 82L265.5 73L148.5 82.5Z" fill="#C09CFC" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M109 278.5L244 254L246.5 404.5L116 440.5L109 278.5Z" fill="#FC9C9C" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M24.5 251.5L109 278.5L116 440.5L33 400L24.5 251.5Z" fill="#FC9C9C" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+<path d="M153.5 230L24.5 251.5L109 278.5L244 254L153.5 230Z" fill="#FC9C9C" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+</svg>
